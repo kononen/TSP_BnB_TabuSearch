@@ -9,7 +9,7 @@ Matrix::Matrix():Matrix(Globals::defaultGenerationMin, Globals::defaultGeneratio
 {
 }
 
-Matrix::Matrix(int min, int max, int dim)
+Matrix::Matrix(int min, int max, int dim) // конструктор инициализации
 {
 	std::srand(time(NULL));
 
@@ -36,9 +36,10 @@ Matrix::Matrix(int min, int max, int dim)
 	
 }
 
-Matrix::Matrix(const Matrix& otherM)
+Matrix::Matrix(const Matrix& otherM) // конструктор копирования
 {
 	std::vector<int> matrixRow;
+	this->allbound = otherM.allbound;
 	for (int i = 0; i < otherM.matrix.size(); i++)
 	{
 		this->horzHeading.push_back(otherM.horzHeading[i]);
@@ -53,57 +54,59 @@ Matrix::Matrix(const Matrix& otherM)
 	}
 } 
 
-//void Matrix::equalityFirstData()
-//{
-//	std::vector<int> matrixRow;
-//	for (int i = 0; i < this->matrix.size(); i++)
-//	{
-//		this->horzHeading.push_back(i);
-//		this->vertHeading.push_back(i);
-//
-//		for (int j = 0; j < this->matrix.size(); j++)
-//		{
-//			matrixRow.push_back(this->matrix[i][j]);
-//		}
-//		this->baseDataMatrix.push_back(matrixRow);
-//		matrixRow.clear();
-//	}
-//}
+void Matrix::operator=(const Matrix& otherM) // оператор равенства
+{
+	std::vector<int> matrixRow;
+	this->allbound = otherM.allbound;
+	for (int i = 0; i < otherM.matrix.size(); i++)
+	{
+		this->horzHeading.push_back(otherM.horzHeading[i]);
+		this->vertHeading.push_back(otherM.vertHeading[i]);
+
+		for (int j = 0; j < otherM.matrix.size(); j++)
+		{
+			matrixRow.push_back(otherM.matrix[i][j]);
+		}
+		matrix.push_back(matrixRow);
+		matrixRow.clear();
+	}
+}
 
 void Matrix::printM()
 {
-	std::cout << std::endl;
-	std::cout.setf(std::ios::left);
-	for (int k = 0; k < matrix.size(); k++)
-	{
-		std::cout << "==========";
-	}
-	std::cout << std::endl;
-	for (int k = 0; k < matrix.size(); k++)
-	{
-		std::cout << "\t   " << horzHeading[k];
-	}
-	std::cout << std::endl;
-	for (int k = 0; k < matrix.size(); k++)
-	{
-		std::cout << "==========";
-	}
-	std::cout << std::endl;
+	//std::cout << std::endl;
+	//std::cout.setf(std::ios::left);
+	//for (int k = 0; k < matrix.size(); k++)
+	//{
+	//	std::cout << "==========";
+	//}
+	//std::cout << std::endl;
+	//for (int k = 0; k < matrix.size(); k++)
+	//{
+	//	std::cout << "\t   " << horzHeading[k];
+	//}
+	//std::cout << std::endl;
+	//for (int k = 0; k < matrix.size(); k++)
+	//{
+	//	std::cout << "==========";
+	//}
+	//std::cout << std::endl;
 
-	for (int i = 0; i < horzHeading.size(); i++)
-	{
-		std::cout << vertHeading[i];
-		std::cout.setf(std::ios::right);
-		std::cout << " ||";
-		for (int j = 0; j < vertHeading.size(); j++)
-		{
-			std::cout.setf(std::ios::right);
-			std::cout.width(8);
-			std::cout << matrix[i][j];
-		}
-		std::cout << std::endl;
-	}
-	std::cout.setf(std::ios::left);
+	//for (int i = 0; i < horzHeading.size(); i++)
+	//{
+	//	std::cout << vertHeading[i];
+	//	std::cout.setf(std::ios::right);
+	//	std::cout << " ||";
+	//	for (int j = 0; j < vertHeading.size(); j++)
+	//	{
+	//		std::cout.setf(std::ios::right);
+	//		std::cout.width(8);
+	//		std::cout << matrix[i][j];
+	//	}
+	//	std::cout << std::endl;
+	//}
+	//std::cout.setf(std::ios::left);
+	//std::cout << "На данный момент ДЛИНА всего пути = " << allbound << std::endl;
 }
 
 int Matrix::minInRow(const int& rowNum)
